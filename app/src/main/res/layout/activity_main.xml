@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            app:srcCompat="@drawable/pokedex_logo" />
+
+        <ImageView
+            android:id="@+id/ivPlay"
+            android:layout_width="60dp"
+            android:layout_height="79dp"
+            android:layout_marginStart="135dp"
+            android:layout_marginEnd="5dp"
+            app:srcCompat="@drawable/play_btn" />
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="40dp"
+            android:layout_height="78dp"
+            android:layout_marginEnd="5dp"
+            app:srcCompat="@drawable/fav_btn" />
+        <ImageView
+            android:id="@+id/ivSettings"
+            android:layout_width="40dp"
+            android:layout_height="78dp"
+            app:srcCompat="@drawable/settings_btn" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/custom_search"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:hint="search"
+            android:textColor="@color/white"
+            android:paddingHorizontal="20dp"
+            android:textColorHint="@color/white"
+            android:drawableEnd="@drawable/baseline_search_24"
+            android:paddingEnd="10dp"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:background="@drawable/custom_dropdown"
+            android:layout_marginStart="250dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="10dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical" />
+        
+        <Button
+            android:id="@+id/btnViewMore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View More"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="75dp"
+            android:layout_marginEnd="75dp"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:textColor="@color/blue"
+            android:background="@drawable/custom_btn"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
