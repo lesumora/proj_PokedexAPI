@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/bg"
     tools:context=".MainActivity">
 
+    <!-- Header with logo and buttons -->
     <LinearLayout
+        android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/imageView4"
@@ -29,12 +31,14 @@
             android:layout_marginStart="135dp"
             android:layout_marginEnd="5dp"
             app:srcCompat="@drawable/play_btn" />
+
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="40dp"
             android:layout_height="78dp"
             android:layout_marginEnd="5dp"
             app:srcCompat="@drawable/fav_btn" />
+
         <ImageView
             android:id="@+id/ivSettings"
             android:layout_width="40dp"
@@ -42,57 +46,78 @@
             app:srcCompat="@drawable/settings_btn" />
     </LinearLayout>
 
+    <!-- Search and Spinner Container -->
     <LinearLayout
+        android:id="@+id/search_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/header_layout">
 
-        <EditText
-            android:layout_marginTop="20dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/custom_search"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:hint="search"
-            android:textColor="@color/white"
-            android:paddingHorizontal="20dp"
-            android:textColorHint="@color/white"
-            android:drawableEnd="@drawable/baseline_search_24"
-            android:paddingEnd="10dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginVertical="20dp">
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="0dp"
+                android:layout_weight="6"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_search"
+                android:hint="search"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/baseline_search_24" />
+
+        </LinearLayout>
 
         <Spinner
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:spinnerMode="dropdown"
             android:background="@drawable/custom_dropdown"
-            android:layout_marginStart="250dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginTop="10dp"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scrollbars="vertical" />
-        
-        <Button
-            android:id="@+id/btnViewMore"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="View More"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="75dp"
-            android:layout_marginEnd="75dp"
-            android:layout_marginTop="30dp"
-            android:textStyle="bold"
-            android:textSize="25dp"
-            android:textColor="@color/blue"
-            android:background="@drawable/custom_btn"/>
-
+            android:layout_marginLeft="40dp"
+            android:spinnerMode="dropdown" />
     </LinearLayout>
 
+    <!-- View More Button -->
+    <Button
+        android:id="@+id/btnViewMore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/custom_btn"
+        android:text="View More"
+        android:textColor="@color/blue"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+    <!-- RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@id/btnViewMore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_container" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

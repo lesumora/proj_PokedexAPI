@@ -30,54 +30,54 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="400dp"
             android:orientation="vertical"
             android:background="@drawable/custom_forms_container"
             android:layout_marginStart="25dp"
+            android:gravity="center"
             android:layout_marginEnd="25dp">
 
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Change Name"-->
+<!--                android:textColor="@color/yellow"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="20sp"-->
+<!--                android:layout_marginStart="25dp"-->
+<!--                android:layout_marginTop="10dp"/>-->
+
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_marginStart="25dp"-->
+<!--                android:layout_marginEnd="25dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:hint="name"-->
+<!--                android:textColorHint="@color/white"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:background="@drawable/custom_input_fields"/>-->
+
+<!--            <Button-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/custom_btn"-->
+<!--                android:layout_marginStart="25dp"-->
+<!--                android:layout_marginEnd="25dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="Save Changes"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="15sp"-->
+<!--                android:textColor="@color/blue"/>-->
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Change Name"
-                android:textColor="@color/yellow"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="10dp"/>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="10dp"
-                android:hint="name"
-                android:textColorHint="@color/white"
-                android:textColor="@color/white"
-                android:background="@drawable/custom_input_fields"/>
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/custom_btn"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginTop="10dp"
-                android:text="Save Changes"
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="@color/blue"/>
-
-            <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Change Password"
                 android:textColor="@color/yellow"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="40dp"/>
+                />
 
             <EditText
                 android:id="@+id/etCurrentPassword"
