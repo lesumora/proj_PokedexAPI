@@ -1,21 +1,37 @@
 {
   "project_info": {
+<<<<<<< HEAD
     "project_number": "240520422596",
     "project_id": "madproject-3722e",
     "storage_bucket": "madproject-3722e.firebasestorage.app"
+=======
+    "project_number": "257469158477",
+    "project_id": "proj-pokedexapi",
+    "storage_bucket": "proj-pokedexapi.firebasestorage.app"
+>>>>>>> 2ce15fcaec9ee7f442102de1cc160fc350040bcb
   },
   "client": [
     {
       "client_info": {
+<<<<<<< HEAD
         "mobilesdk_app_id": "1:240520422596:android:e70520bbdeddf9ba6fd591",
         "android_client_info": {
           "package_name": "com.validex.madproject"
+=======
+        "mobilesdk_app_id": "1:257469158477:android:64bb4da85a327980b63804",
+        "android_client_info": {
+          "package_name": "com.example.proj_pokedexapi"
+>>>>>>> 2ce15fcaec9ee7f442102de1cc160fc350040bcb
         }
       },
       "oauth_client": [],
       "api_key": [
         {
+<<<<<<< HEAD
           "current_key": "AIzaSyBzkFBoLZrk-b_HP0cbkd6S_paAjoSuwr4"
+=======
+          "current_key": "AIzaSyDPod52t8GUac29ijIGU-DvmWv6rYYin_4"
+>>>>>>> 2ce15fcaec9ee7f442102de1cc160fc350040bcb
         }
       ],
       "services": {

@@ -7,8 +7,13 @@ appcompat = "1.7.0"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
+<<<<<<< HEAD
 googleGmsGoogleServices = "4.4.2"
 firebaseAuth = "23.2.0"
+=======
+firebaseAuth = "23.2.0"
+googleGmsGoogleServices = "4.4.2"
+>>>>>>> 2ce15fcaec9ee7f442102de1cc160fc350040bcb
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }

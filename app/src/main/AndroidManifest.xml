@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+<<<<<<< HEAD
+=======
+    <uses-permission android:name="android.permission.INTERNET" />
+
+>>>>>>> 2ce15fcaec9ee7f442102de1cc160fc350040bcb
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -10,6 +15,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+<<<<<<< HEAD
         android:theme="@style/Theme.MADProject"
         tools:targetApi="31">
         <activity
@@ -20,6 +26,30 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
+=======
+        android:theme="@style/Theme.Proj_PokedexAPI"
+        tools:targetApi="31">
+        <activity
+            android:name=".QuizPage"
+            android:exported="false" />
+        <activity
+            android:name=".PokemonDetailsPage"
+            android:exported="false" />
+        <activity
+            android:name=".FavoritesPage"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsPage"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrationPage"
+            android:exported="false" />
+        <activity
+            android:name=".LoginPage"
+            android:exported="false" />
+        <activity
+            android:name=".LandingPage"
+>>>>>>> 2ce15fcaec9ee7f442102de1cc160fc350040bcb
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+<<<<<<< HEAD
     <color name="white">#FFFFFFFF</color>
+=======
+    <color name="white">#EBEBEB</color>
+    <color name="yellow">#FFCC01</color>
+    <color name="blue">#365FAC</color>
+    <color name="brown">#875015</color>
+    <color name="white_transparent">#41F0F0F0</color>
+    <color name="blue_transparent">#8006032C</color>
+
+>>>>>>> 2ce15fcaec9ee7f442102de1cc160fc350040bcb
 </resources>

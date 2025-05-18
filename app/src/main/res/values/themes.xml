@@ -1,9 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+<<<<<<< HEAD
     <style name="Base.Theme.MADProject" parent="Theme.Material3.DayNight.NoActionBar">
+=======
+    <style name="Base.Theme.Proj_PokedexAPI" parent="Theme.AppCompat.DayNight.NoActionBar">
+>>>>>>> 2ce15fcaec9ee7f442102de1cc160fc350040bcb
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+<<<<<<< HEAD
     <style name="Theme.MADProject" parent="Base.Theme.MADProject" />
+=======
+    <style name="Theme.Proj_PokedexAPI" parent="Base.Theme.Proj_PokedexAPI" />
+>>>>>>> 2ce15fcaec9ee7f442102de1cc160fc350040bcb
 </resources>

@@ -1,3 +1,7 @@
 <resources>
+<<<<<<< HEAD
     <string name="app_name">MADProject</string>
+=======
+    <string name="app_name">proj_PokedexAPI</string>
+>>>>>>> 2ce15fcaec9ee7f442102de1cc160fc350040bcb
 </resources>
