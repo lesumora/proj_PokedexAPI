@@ -12,16 +12,25 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PokemonDetailsPage extends AppCompatActivity {
 
     private static final String TAG = "PokemonDetailsPage";
     private TextView tvName, tvIdNo, tvType, tvResHp, tvResSpeed, tvResAttack, tvResDefense, tvResSpecialAtt, tvResSpecialDef;
     private ImageView imgPokemon;
-    private Button backBtn;
+    private Button backBtn, favoriteBtn;
     private RequestQueue requestQueue;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private String pokemonName;
+    private int pokemonId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +43,10 @@ public class PokemonDetailsPage extends AppCompatActivity {
             finish();
             return;
         }
+
+        // Initialize Firebase
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         // Initialize views
         try {
@@ -48,6 +61,7 @@ public class PokemonDetailsPage extends AppCompatActivity {
             tvResSpecialAtt = findViewById(R.id.tv_resSpecialAtt);
             tvResSpecialDef = findViewById(R.id.tv_resSpecialDef);
             backBtn = findViewById(R.id.back_btn);
+            favoriteBtn = findViewById(R.id.btnFave);
         } catch (Exception e) {
             Log.e(TAG, "Error initializing views: " + e.getMessage());
             Toast.makeText(this, "Error initializing views", Toast.LENGTH_SHORT).show();
@@ -61,8 +75,11 @@ public class PokemonDetailsPage extends AppCompatActivity {
         // Handle back button
         backBtn.setOnClickListener(v -> finish());
 
+        // Handle favorite button
+        favoriteBtn.setOnClickListener(v -> saveToFavorites());
+
         // Get Pokémon name from Intent
-        String pokemonName = getIntent().getStringExtra("pokemon_name");
+        pokemonName = getIntent().getStringExtra("pokemon_name");
         if (pokemonName == null || pokemonName.isEmpty()) {
             Log.e(TAG, "No Pokémon name received");
             Toast.makeText(this, "No Pokémon name provided", Toast.LENGTH_SHORT).show();
@@ -81,7 +98,8 @@ public class PokemonDetailsPage extends AppCompatActivity {
                         tvName.setText(name);
 
                         // ID
-                        String id = "#" + response.getInt("id");
+                        pokemonId = response.getInt("id");
+                        String id = "#" + pokemonId;
                         tvIdNo.setText(id);
 
                         // Type(s)
@@ -140,5 +158,29 @@ public class PokemonDetailsPage extends AppCompatActivity {
                     finish();
                 });
         requestQueue.add(request);
+    }
+
+    private void saveToFavorites() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null) {
+            Toast.makeText(this, "Please log in to save favorites", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String userId = user.getUid();
+        Map<String, Object> favorite = new HashMap<>();
+        favorite.put("name", pokemonName);
+        favorite.put("id", pokemonId);
+
+        db.collection("users").document(userId).collection("favorites").document(String.valueOf(pokemonId))
+                .set(favorite)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Pokémon added to favorites");
+                    Toast.makeText(this, pokemonName + " added to favorites", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error adding to favorites: " + e.getMessage());
+                    Toast.makeText(this, "Error saving to favorites", Toast.LENGTH_SHORT).show();
+                });
     }
 }

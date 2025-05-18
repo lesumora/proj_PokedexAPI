@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +35,9 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView ivPlay, ivSettings, ivSearch;
+    private ImageView ivPlay, ivSettings, ivSearch, ivFavorites;
     private EditText etSearch;
+    private Spinner spinnerTypeFilter;
     private FirebaseAuth mAuth;
     private RecyclerView recyclerView;
     private Button btnViewMore;
@@ -42,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     private PokemonAdapter adapter;
     private int offset = 0;
     private final int limit = 5;
+    private String selectedType = "all";
+
+    String[] pokemonTypes = {"All", "Normal", "Fighting", "Flying", "Poison", "Ground", "Rock", "Bug", "Ghost",
+            "Steel", "Fire", "Water", "Grass", "Electric", "Psychic", "Ice", "Dragon", "Dark", "Fairy"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
         ivPlay = findViewById(R.id.ivPlay);
         ivSettings = findViewById(R.id.ivSettings);
+        ivFavorites = findViewById(R.id.ivFavorites);
         ivSearch = findViewById(R.id.ivSearch);
         etSearch = findViewById(R.id.etSearch);
+        spinnerTypeFilter = findViewById(R.id.spinnerTypeFilter);
         recyclerView = findViewById(R.id.recyclerView);
         btnViewMore = findViewById(R.id.btnViewMore);
         requestQueue = Volley.newRequestQueue(this);
@@ -62,8 +72,30 @@ public class MainActivity extends AppCompatActivity {
 
         ivPlay.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, QuizPage.class)));
         ivSettings.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SettingsPage.class)));
+        ivFavorites.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, FavoritesPage.class)));
 
         mAuth = FirebaseAuth.getInstance();
+
+        // Set up Spinner
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, pokemonTypes);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTypeFilter.setAdapter(spinnerAdapter);
+        spinnerTypeFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedType = parent.getItemAtPosition(position).toString().toLowerCase();
+                offset = 0;
+                pokemonList.clear();
+                adapter.notifyDataSetChanged();
+                fetchPokemon();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectedType = "all";
+                fetchPokemon();
+            }
+        });
 
         // Search button click listener
         ivSearch.setOnClickListener(v -> performSearch());
@@ -118,22 +150,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fetchPokemon() {
-        String url = "https://pokeapi.co/api/v2/pokemon?limit=" + limit + "&offset=" + offset;
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                response -> {
-                    try {
-                        JSONArray results = response.getJSONArray("results");
-                        for (int i = 0; i < results.length(); i++) {
-                            JSONObject pokemon = results.getJSONObject(i);
-                            String detailUrl = pokemon.getString("url");
-                            fetchPokemonDetails(detailUrl);
+        if (selectedType.equals("all")) {
+            String url = "https://pokeapi.co/api/v2/pokemon?limit=" + limit + "&offset=" + offset;
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                    response -> {
+                        try {
+                            JSONArray results = response.getJSONArray("results");
+                            for (int i = 0; i < results.length(); i++) {
+                                JSONObject pokemon = results.getJSONObject(i);
+                                String detailUrl = pokemon.getString("url");
+                                fetchPokemonDetails(detailUrl);
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(this, "Error parsing data", Toast.LENGTH_SHORT).show();
                         }
-                    } catch (Exception e) {
-                        Toast.makeText(this, "Error parsing data", Toast.LENGTH_SHORT).show();
-                    }
-                },
-                error -> Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show());
-        requestQueue.add(request);
+                    },
+                    error -> Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show());
+            requestQueue.add(request);
+        } else {
+            String url = "https://pokeapi.co/api/v2/type/" + selectedType;
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                    response -> {
+                        try {
+                            JSONArray pokemonArray = response.getJSONArray("pokemon");
+                            int start = offset;
+                            int end = Math.min(offset + limit, pokemonArray.length());
+                            for (int i = start; i < end; i++) {
+                                JSONObject pokemon = pokemonArray.getJSONObject(i);
+                                String detailUrl = pokemon.getJSONObject("pokemon").getString("url");
+                                fetchPokemonDetails(detailUrl);
+                            }
+                            // Disable View More button if no more Pokémon to load
+                            btnViewMore.setEnabled(end < pokemonArray.length());
+                        } catch (Exception e) {
+                            Toast.makeText(this, "Error parsing type data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    },
+                    error -> Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show());
+            requestQueue.add(request);
+        }
     }
 
     private void fetchPokemonDetails(String url) {
@@ -180,7 +235,6 @@ public class MainActivity extends AppCompatActivity {
             textView.setTextSize(16);
             textView.setTextColor(Color.WHITE);
             layout.addView(textView);
-
 
             return new PokemonViewHolder(layout, imageView, textView);
         }

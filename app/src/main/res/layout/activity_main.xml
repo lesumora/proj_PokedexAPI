@@ -33,7 +33,7 @@
             app:srcCompat="@drawable/play_btn" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/ivFavorites"
             android:layout_width="40dp"
             android:layout_height="78dp"
             android:layout_marginEnd="5dp"
@@ -84,6 +84,7 @@
         </LinearLayout>
 
         <Spinner
+            android:id="@+id/spinnerTypeFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/custom_dropdown"
